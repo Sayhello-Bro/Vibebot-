@@ -1,131 +1,130 @@
 # FB Live Auto Comment System
-Real-time Speech Recognition and Automatic Live Interaction Assistant
+Real-time Speech Recognition and Automatic Facebook Live Interaction Assistant
 
-![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-green)
-![License: MIT](https://img.shields.io/badge/License-MIT-green)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-本專題實作一套即時直播互動系統，整合：
+## Overview
 
-- Streaming Speech-to-Text（語音辨識）
-- Local LLM 回覆生成
-- Chrome Extension 自動留言
-- Launcher.exe 一鍵啟動整合流程
+This project implements a real-time automatic interaction assistant for Facebook Live streaming.
 
-系統可即時監聽直播語音內容，自動產生回覆並發布留言。
+The system listens to livestream audio, converts speech into structured semantic text, generates responses using a local LLM server, and automatically posts replies through a Chrome Extension.
 
----
+Pipeline:
 
-# 系統概述
-
-整體流程如下：
-
-Speech → STT → JSONL → LLM → API → Chrome Extension → Auto Comment
-
-系統會：
-
-1. 擷取直播聲音
-2. 即時轉文字
-3. 分析語意
-4. 產生回覆
-5. 自動發布留言
+Speech → STT → JSONL → LLM Server → API → Chrome Extension → Auto Comment
 
 ---
 
-# 系統特色
+# Features
 
-## 即時語音辨識（Streaming STT）
+## Real-Time Speech Recognition (Streaming STT)
 
-支援：
+Supports:
 
 - Google Streaming Speech-to-Text
-- Stereo Mix / VB-Cable 音訊擷取
-- interim / final 即時辨識
-- 穩定句子判斷機制
+- Stereo Mix / VB-Cable audio capture
+- Interim and Final transcript detection
+- Stable sentence segmentation
+- Continuous speech monitoring
 
 ---
 
-## 語意分析模組
+## Semantic Processing Module
 
-包含：
+Includes:
 
-- 同音字修正
-- 誤辨識偵測
-- Intent Detection
-- Entity Extraction
+- Homophone correction
+- Misrecognition detection
+- Intent detection
+- Entity extraction
+- Context-aware sentence stabilization
 
 ---
 
-## 本地 LLM Server
+## Local LLM Reply Server
 
-功能：
+Responsibilities:
 
-- 讀取最新 JSONL 語句
-- 生成對應回覆
-- 提供 REST API
+- Reads latest speech JSONL records
+- Extracts semantic meaning
+- Generates contextual reply
+- Provides REST API interface
 
-API：
+API endpoint:
 
 
 http://127.0.0.1:5000/latest_reply
 
 
----
+Example response:
 
-## Chrome Extension 自動留言
 
-Extension 會：
+{
+"source_text": "...",
+"reply": "..."
+}
 
-- 定期呼叫 API
-- 取得回覆文字
-- 自動填入留言框
-- 模擬 Enter 發送留言
 
 ---
 
-## 一鍵啟動系統
+## Chrome Extension Auto Comment Module
 
-執行：
+Extension automatically:
+
+1. Polls reply API periodically
+2. Detects Facebook Live comment input box
+3. Inserts generated reply
+4. Submits comment automatically
+
+---
+
+## One-Click System Execution
+
+Run:
 
 
 FB_Live_Auto_Comment.exe
 
 
-即可自動：
+Automatically launches:
 
-- 啟動 STT worker
-- 啟動 LLM server
-- 開啟 Chrome 直播頁面
-
----
-
-# 系統架構流程
-
-
-使用者啟動 exe
-↓
-Launcher 啟動系統模組
-↓
-Streaming STT
-↓
-句子穩定判斷
-↓
-語意資訊輸出 JSONL
-↓
-LLM Server 讀取最新語句
-↓
-生成回覆內容
-↓
-API 提供回覆
-↓
-Chrome Extension 輪詢 API
-↓
-自動留言送出
-
+- STT worker
+- LLM reply server
+- Chrome livestream page
 
 ---
 
-# 專案結構
+# System Architecture
+
+
+User launches exe
+↓
+Launcher starts modules
+↓
+Streaming STT captures audio
+↓
+Sentence stabilization
+↓
+Semantic extraction
+↓
+JSONL structured output
+↓
+LLM server reads latest sentence
+↓
+Reply generation
+↓
+REST API response
+↓
+Chrome Extension polling
+↓
+Automatic comment submission
+
+
+---
+
+# Project Structure
 
 
 TEST1/
@@ -152,11 +151,15 @@ TEST1/
 
 ---
 
-# 系統需求
+# Requirements
+
+Python version:
+
 
 Python 3.10+
 
-安裝必要套件：
+
+Install dependencies:
 
 
 pip install google-cloud-speech
@@ -167,41 +170,39 @@ pip install flask
 
 ---
 
-# 執行方式
+# Running the System
 
-## 方法一（推薦）
+## Option 1 (Recommended)
 
-直接執行：
+Run executable:
 
 
 FB_Live_Auto_Comment.exe
 
 
-系統會自動：
+This automatically starts:
 
-- 啟動 STT worker
-- 啟動 LLM server
-- 開啟直播頁面
+- STT worker
+- LLM server
+- Chrome livestream page
 
 ---
 
-## 方法二（開發模式）
+## Option 2 (Developer Mode)
 
-手動執行：
-
-啟動 STT：
+Start STT module:
 
 
 python WASAPI_test.py
 
 
-啟動 LLM：
+Start LLM reply server:
 
 
 python test_llm.py
 
 
-載入 Chrome Extension：
+Load Chrome Extension manually:
 
 
 Load unpacked extension
@@ -209,15 +210,17 @@ Load unpacked extension
 
 ---
 
-# API 說明
+# API Interface
 
-取得最新回覆：
+## Get Latest Generated Reply
+
+Request:
 
 
 GET http://127.0.0.1:5000/latest_reply
 
 
-回傳格式：
+Response format:
 
 
 {
@@ -228,10 +231,10 @@ GET http://127.0.0.1:5000/latest_reply
 
 ---
 
-# 語音辨識流程
+# Speech Processing Pipeline
 
 
-音訊輸入
+Audio Input
 ↓
 Chunk segmentation
 ↓
@@ -245,101 +248,105 @@ Intent detection
 ↓
 Entity extraction
 ↓
-JSONL output
+JSONL structured output
 
 
 ---
 
-# 輸出檔案說明
+# Output Files
 
 ## live_transcript.txt
 
-儲存最新辨識語句
+Stores latest real-time speech transcript
 
-範例：
+Example:
 
 
-今天幫我下單三件XL
+Help me place three XL orders
 
 
 ---
 
 ## stt_annotated_output.jsonl
 
-儲存語意分析結果
+Stores structured semantic speech results
 
-範例：
+Example:
 
 
 {
-"resolved_text": "今天幫我下單三件XL",
+"resolved_text": "Help me place three XL orders",
 "intent": "PRODUCT_TRADE_ACTION"
 }
 
 
 ---
 
-# Chrome Extension 流程
+# Chrome Extension Workflow
 
 
-開啟直播頁面
+Open livestream page
 ↓
-輪詢 API
+Poll API periodically
 ↓
-取得回覆文字
+Receive reply text
 ↓
-填入留言框
+Insert into comment box
 ↓
-送出留言
+Submit automatically
 
 
 ---
 
-# 系統完整流程
+# Full System Workflow
 
 
-使用者啟動 exe
+User launches exe
 ↓
-系統擷取直播聲音
+System captures livestream audio
 ↓
-語音轉文字
+Speech converted to text
 ↓
-語意分析
+Semantic analysis applied
 ↓
-LLM 生成回覆
+LLM generates reply
 ↓
-Extension 自動留言
+Extension posts comment automatically
 
 
 ---
 
-# 模組分工
+# Module Responsibilities
 
-本系統包含四個主要模組：
+This project contains four core modules:
 
-Speech Recognition Module  
-負責即時語音轉文字與語意輸出
+### Speech Recognition Module
 
-LLM Server Module  
-負責讀取語句並生成回覆內容
+Handles real-time audio capture and speech-to-text conversion.
 
-Chrome Extension Module  
-負責取得回覆並發布留言
+### LLM Reply Server Module
 
-Launcher Module  
-負責整合並一鍵啟動整個系統
+Processes semantic text and generates automated responses.
+
+### Chrome Extension Module
+
+Fetches generated replies and posts comments automatically.
+
+### Launcher Module
+
+Integrates and starts the entire pipeline with one click.
 
 ---
 
-# 未來改進方向
+# Future Improvements
 
-可擴充：
+Potential upgrades:
 
-- 多人語者辨識
-- 上下文記憶模型
-- GPT-based 語意理解
-- 多平台直播支援
-- 智慧回覆策略優化
+- Multi-speaker recognition
+- Conversation memory modeling
+- GPT-enhanced semantic understanding
+- Multi-platform livestream compatibility
+- Adaptive response strategies
 
 ---
 
