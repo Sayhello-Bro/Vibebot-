@@ -1,0 +1,4 @@
+numpy>=1.23,<2.0
+sounddevice>=0.4.6
+google-cloud-speech>=2.21.0
+grpcio>=1.51.0
