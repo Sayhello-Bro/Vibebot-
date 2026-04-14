@@ -12,9 +12,9 @@ This project implements a real-time automatic interaction assistant for Facebook
 The system listens to livestream audio, converts speech into structured semantic text, generates responses using a local LLM server, and automatically posts replies through a Chrome Extension.
 
 Pipeline:
-
+```
 Speech → STT → JSONL → LLM Server → API → Chrome Extension → Auto Comment
-
+```
 ---
 
 # Features
@@ -98,7 +98,7 @@ Automatically launches:
 
 # System Architecture
 
-
+```
 User launches exe
 ↓
 Launcher starts modules
@@ -120,13 +120,14 @@ REST API response
 Chrome Extension polling
 ↓
 Automatic comment submission
-
+```
 
 ---
 
 # Project Structure
 
 
+```
 TEST1/
 ├── g/
 │ ├── WASAPI_test.py
@@ -147,7 +148,7 @@ TEST1/
 │ └── background.js
 │
 └── launcher.py
-
+```
 
 ---
 
@@ -161,12 +162,12 @@ Python 3.10+
 
 Install dependencies:
 
-
+```
 pip install google-cloud-speech
 pip install sounddevice
 pip install numpy
 pip install flask
-
+```
 
 ---
 
@@ -233,7 +234,7 @@ Response format:
 
 # Speech Processing Pipeline
 
-
+```
 Audio Input
 ↓
 Chunk segmentation
@@ -249,7 +250,7 @@ Intent detection
 Entity extraction
 ↓
 JSONL structured output
-
+```
 
 ---
 
@@ -284,7 +285,7 @@ Example:
 
 # Chrome Extension Workflow
 
-
+```
 Open livestream page
 ↓
 Poll API periodically
@@ -294,13 +295,13 @@ Receive reply text
 Insert into comment box
 ↓
 Submit automatically
-
+```
 
 ---
 
 # Full System Workflow
 
-
+```
 User launches exe
 ↓
 System captures livestream audio
@@ -312,7 +313,7 @@ Semantic analysis applied
 LLM generates reply
 ↓
 Extension posts comment automatically
-
+```
 
 ---
 
@@ -350,6 +351,3 @@ Potential upgrades:
 
 ---
 
-# License
-
-MIT License
