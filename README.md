@@ -1,9 +1,8 @@
 # FB Live Auto Comment System
 Real-time Speech Recognition and Automatic Facebook Live Interaction Assistant
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![Python](https://img.shields.io/badge/Python-3.12+-blue)
 ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-green)
-![License](https://img.shields.io/badge/License-MIT-green)
 
 ## Overview
 
@@ -157,7 +156,7 @@ TEST1/
 Python version:
 
 
-Python 3.10+
+Python 3.12+
 
 
 Install dependencies:
